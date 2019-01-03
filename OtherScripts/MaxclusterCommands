@@ -1,0 +1,2 @@
+
+.\maxcluster.exe -l list_test.txt -tm -in -C 0 -R complete
