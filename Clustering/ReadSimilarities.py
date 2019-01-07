@@ -7,8 +7,8 @@ from sklearn.preprocessing import MinMaxScaler
 def readSimilaritiesToMatrix(sample, measure):
     print('Reading distances for '+measure)
     
-    path_to_matrix = 'C:/ShareSSD/scop/data/values_'+sample+'_'+measure
-    path_to_domains = 'C:/ShareSSD/scop/data/domains_'+sample
+    path_to_matrix = '/home/pedro/Desktop/scop/data/values_'+sample+'_'+measure
+    path_to_domains = '/home/pedro/Desktop/scop/data/domains_'+sample
 
     counter = 0
     matrix = []
@@ -70,7 +70,7 @@ def readSimilaritiesToMatrix(sample, measure):
     # symmetrize and write results to file
     matrix = mf.symmetrizeMatrix(matrix)
     matrix = np.matrix(matrix)
-    matrix.dump("C:/ShareSSD/scop/data/matrix_"+sample+'_'+measure)
+    matrix.dump("/home/pedro/Desktop/scop/data/matrix_"+sample+'_'+measure)
 
     # write domain list to file
     if not os.path.isfile(path_to_domains):
@@ -83,12 +83,12 @@ def readSimilaritiesToMatrix(sample, measure):
     #print(matrix)
 
 def loadMatrixFromFile(sample, measure):
-    path_to_matrix = 'C:/ShareSSD/scop/data/matrix_'+sample+'_'+measure
+    path_to_matrix = '/home/pedro/Desktop/scop/data/matrix_'+sample+'_'+measure
     matrix = np.load(path_to_matrix)
     return matrix
 
 def loadDomainListFromFile(sample):
-    path_to_domains = 'C:/ShareSSD/scop/data/domains_'+sample
+    path_to_domains = '/home/pedro/Desktop/scop/data/domains_'+sample
     domains = []
     with open(path_to_domains, 'r') as fp:
         line = fp.readline()
@@ -99,8 +99,8 @@ def loadDomainListFromFile(sample):
 
 def readMaxsubFile():
     
-    path_to_maxsub = 'C:/ShareSSD/scop2/data_old/maxsubfile'
-    path_to_pairs = 'C:/ShareSSD/scop2/data_old/test_pairs'
+    path_to_maxsub = '/home/pedro/Desktop/scop2/data_old/maxsubfile'
+    path_to_pairs = '/home/pedro/Desktop/scop2/data_old/test_pairs'
 
     with open(path_to_maxsub, 'r') as fp:
         with open(path_to_pairs, 'w') as fp2:
@@ -115,8 +115,8 @@ def readMaxsubFile():
                 line = fp.readline()
 
 def readRMSDFile():
-    path_to_distances = 'C:/ShareSSD/scop/data/sim_gdt2'
-    path_to_new = 'C:/ShareSSD/scop/data/distances_gdt_2'
+    path_to_distances = '/home/pedro/Desktop/scop/data/sim_gdt2'
+    path_to_new = '/home/pedro/Desktop/scop/data/distances_gdt_2'
 
     with open(path_to_distances, 'r') as fp:
         with open(path_to_new, 'w') as fp2:
@@ -133,12 +133,12 @@ def readRMSDFile():
 
 #juntar pares e distancias com o resto dos dados
 def joinDataToFullMatrix():
-    path_to_rmsd = 'C:/ShareSSD/scop/data/distances_rmsd'
-    path_to_gdt_2 = 'C:/ShareSSD/scop/data/distances_gdt_2'
-    path_to_gdt_4 = 'C:/ShareSSD/scop/data/distances_gdt_4'
+    path_to_rmsd = '/home/pedro/Desktop/scop/data/distances_rmsd'
+    path_to_gdt_2 = '/home/pedro/Desktop/scop/data/distances_gdt_2'
+    path_to_gdt_4 = '/home/pedro/Desktop/scop/data/distances_gdt_4'
 
-    path_to_sim = 'C:/ShareSSD/scop/summary_a.1'
-    path_to_newest = 'C:/ShareSSD/scop/newest_sum'
+    path_to_sim = '/home/pedro/Desktop/scop/summary_a.1'
+    path_to_newest = '/home/pedro/Desktop/scop/newest_sum'
 
     with open(path_to_sim,'r') as fp:
         with open(path_to_rmsd, 'r') as fp2:
@@ -167,6 +167,3 @@ def joinDataToFullMatrix():
                             line2 = fp2.readline()
                             line3 = fp3.readline()
                             line4 = fp4.readline()
-
-readSimilaritiesToMatrix('a.1.','rmsd')
-#readSimilaritiesToMatrix('a.1.','pairs')
