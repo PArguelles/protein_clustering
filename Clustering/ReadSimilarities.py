@@ -1,8 +1,6 @@
 import os
 import numpy as np
 import MatrixFunctions as mf
-from sklearn.preprocessing import MinMaxScaler
-
 
 def readSimilaritiesToMatrix(sample, measure):
     print('Reading distances for '+measure)
@@ -115,15 +113,15 @@ def readMaxsubFile():
                 line = fp.readline()
 
 def readRMSDFile():
-    path_to_distances = '/home/pedro/Desktop/scop/data/sim_gdt2'
-    path_to_new = '/home/pedro/Desktop/scop/data/distances_gdt_2'
+    path_to_distances = '/home/pedro/Desktop/scop/data/sim_rmsd'
+    path_to_new = '/home/pedro/Desktop/scop/data/distances_rmsd'
 
     with open(path_to_distances, 'r') as fp:
         with open(path_to_new, 'w') as fp2:
             line = fp.readline()
 
             while line:
-                if 'DIST :' in line:
+                if 'DIST :' in line and '#' not in line:
                     print(line)
                     parsed = str(line).strip().split()
                     if parsed[2] != parsed[3]:

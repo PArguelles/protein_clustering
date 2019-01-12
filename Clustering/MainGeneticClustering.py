@@ -8,7 +8,7 @@ import UtilitiesSCOP as scop
 from sklearn.cluster import AgglomerativeClustering
 
 # load protein data before loop
-path_to_results = 'C:/ShareSSD/scop/clustering_results/'
+path_to_results = '/home/pedro/Desktop/scop/clustering_results/'
 measure1 = 'gdt_2'
 measure2 = 'gdt_2'
 measure3 = 'seq_id'
@@ -82,7 +82,7 @@ with open(path_to_results+'hierarchical_'+measure1+'_'+measure2, 'w') as nf:
                 metrics = cl.clusterEvaluation(X, labels, ground_truth)
 
                 nf.write('# Cluster evaluation: \n')
-                nf.write('Individual: '+'-'.join(str(individual)))
+                nf.write('Individual: '+' '.join(str(individual))+'\n')
                 nf.write('Homogeneity: %0.3f \n' % metrics[0])
                 nf.write('Completeness: %0.3f \n' % metrics[1])
                 nf.write('V-measure: %0.3f \n' % metrics[2])
