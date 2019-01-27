@@ -5,38 +5,34 @@ import ClusterEvaluation as ce
 import numpy as np
 from sklearn.cluster import AgglomerativeClustering
 
-path_to_results = '/home/pedro/Desktop/scop/clustering_results/'
-sample = 'a.1'
-sample_for_file_name = 'a.1.'
+path_to_results = 'C:/ShareSSD/scop/clustering_results/'
 
 #read how many unique superfamilies there are in the sample
-n = scop.getUniqueClassifications(sample)
+n = scop.getUniqueClassifications('a.1')
 
-measure1 = 'gdt4'
-measure2 = 'gdt4'
+measure1 = 'rmsd'
+measure2 = 'maxsub'
 #measure2 = 'maxsub'
 
 #read matrices
 domains, matrix1 = ff.readDistances(measure1)
+matrix2 = ff.loadMatrixFromFile('a.1.', measure1)
 matrix2 = matrix1
 #domains, matrix2 = ff.readDistances(measure2)
 #matrix2 = ff.loadMatrixFromFile('a.1.', measure2)
 
 ground_truth = scop.getDomainLabels(domains)
 
-#matrix1 = mf.calculateDistances(matrix1, matrix1)
-#matrix2 = mf.calculateDistances(matrix2, matrix2)
+matrix1 = mf.calculateDistances(matrix1, matrix1)
+matrix2 = mf.calculateDistances(matrix2, matrix2)
 
-multiple_weight = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
-single_weight = [1.0]
-
-for w1 in single_weight:
+for w1 in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]:
 
     corr = mf.calculateCorrelation(w1, matrix1, matrix2)
 
     for link in ['complete','average']:
 
-        with open(path_to_results+sample_for_file_name+'_hiearchical_noeuclidean_'+link+'_'+str(w1)+'_'+measure1+'_'+measure2,'w') as file:
+        with open(path_to_results+'hiearchical_'+link+'_'+str(w1)+'_'+measure1+'_'+measure2,'w') as file:
 
             agglo = AgglomerativeClustering(affinity='precomputed', n_clusters=n, linkage=link).fit(corr)
             labels = agglo.labels_
@@ -45,8 +41,8 @@ for w1 in single_weight:
             print(w1)
 
             file.write('# Cluster evaluation: \n')
-            file.write('Measure1: '+measure1+'\n')
-            file.write('Measure2: '+measure2+'\n')
+            file.write('Measure: '+measure1)
+            file.write('Measure: '+measure2)
             file.write('W1: %0.3f \n' % w1)
             file.write('Homogeneity: %0.3f \n' % metrics[0])
             file.write('Completeness: %0.3f \n' % metrics[1])

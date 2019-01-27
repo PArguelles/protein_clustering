@@ -5,20 +5,23 @@ import ClusterEvaluation as ce
 import numpy as np
 from sklearn.cluster import AgglomerativeClustering
 
-path_to_results = '/home/pedro/Desktop/scop/clustering_results/'
+path_to_results = 'C:/ShareSSD/scop2/clustering_results/'
 
 sample = 'a.1'
 
 #read how many unique superfamilies there are in the sample
 n = scop.getUniqueClassifications(sample)
 
-measure1 = 'maxsub'
-measure2 = 'maxsub'
+measure1 = 'maxsub_high'
+measure2 = 'maxsub_low'
 
 #read matrices
-domains, matrix1 = ff.readDistancesMaxsub(measure1)
-domains, matrix2 = ff.readDistancesMaxsub(measure2)
+#domains, matrix1 = ff.readDistancesMaxsub(measure1)
+#domains, matrix2 = ff.readDistancesMaxsub(measure2)
 #matrix2 = ff.loadMatrixFromFile('a.1.', measure2)
+
+matrix1 = ff.loadMatrixFromFile(sample, measure1)
+matrix2 = matrix1
 
 ground_truth = scop.getDomainLabels(domains)
 
@@ -28,7 +31,8 @@ matrix2 = mf.calculateDistances(matrix2, matrix2)
 for w1 in [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]:
 
     corr = mf.calculateCorrelation(w1, matrix1, matrix2)
-
+    corr -= 1
+    
     for link in ['complete','average']:
 
         with open(path_to_results+'hiearchicalmax_'+link+'_'+str(w1)+'_'+measure1+'_'+measure2,'w') as file:

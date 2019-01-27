@@ -3,9 +3,9 @@ import sklearn.preprocessing as pp
 
 def symmetrizeMatrix(a):
     a = a + a.T - np.diag(a.diagonal())
-    np.savetxt("/home/pedro/Desktop/scop/data_old/matrix4", a,delimiter=' ', newline='\n')
+    np.savetxt("C:/ShareSSD/scop/data_old/matrix4", a,delimiter=' ', newline='\n')
     return a    
-   
+
 def calculateCorrelation(w, a, b):
     a = np.asmatrix(a)
     b = np.asmatrix(b)

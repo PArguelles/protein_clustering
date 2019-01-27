@@ -57,3 +57,27 @@ def splitDataMaxsub(measure, column, signal):
                 # structure1 structure2 rmsd maxsub1 maxsub2 tmscore1 tmscore2 gdt_2 gdt_4 seq pairs
                 nf.write(structure1+' '+structure2+' '+value+'\n')
                 line = fp.readline()
+
+def splitDataForKernelEstimation(sample, measure):
+
+    path_to_alignment = 'C:/ShareSSD/scop/data/sim_'+sample+'_'+measure
+    path_to_values = 'C:/ShareSSD/scop/values_'+sample+'_'+measure
+
+    with open(path_to_alignment, 'r') as fp:
+        with open(path_to_values, 'w') as nf:
+
+            line = fp.readline()
+            while line:
+                
+                if 'DIST :' in line and '#' not in line:
+                    nf.write(str(line).strip().split()[4]+'\n')
+
+                print(line)
+
+                # structure1 structure2 rmsd maxsub1 maxsub2 tmscore1 tmscore2 gdt_2 gdt_4 seq pairs
+                #nf.write(structure1+' '+structure2+' '+value+'\n')
+                line = fp.readline()
+
+splitDataForKernelEstimation('b.3.','gdt_2')
+
+

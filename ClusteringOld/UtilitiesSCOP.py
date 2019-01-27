@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 def getSCOPSample():
-    scop_names_path = "/home/pedro/Desktop/scop/scope/dir.cla.scope.2.07-stable.txt"
+    scop_names_path = "C:/ShareSSD/scop/scope/dir.cla.scope.2.07-stable.txt"
 
     to_write = set()
 
@@ -18,12 +18,12 @@ def getSCOPSample():
 
     to_write = list(to_write)
 
-    with open('/home/pedro/Desktop/scop/sample_'+fold, 'w') as nf:
+    with open('C:/ShareSSD/scop/sample_'+fold, 'w') as nf:
         for pair in to_write:
             nf.write(pair+'\n')
 
 def getUniqueClassifications(sample):
-    scop_sample_path= "/home/pedro/Desktop/scop/samples/sample_"+sample
+    scop_sample_path= "C:/ShareSSD/scop/samples/sample_"+sample
 
     superfamilies = set()
 
@@ -37,7 +37,7 @@ def getUniqueClassifications(sample):
     return len(superfamilies)
 
 def getDomainLabels(domains):
-    scop_names_path = "/home/pedro/Desktop/scop/scope/dir.cla.scope.2.07-stable.txt"
+    scop_names_path = "C:/ShareSSD/scop/scope/dir.cla.scope.2.07-stable.txt"
 
     labels = []
 

@@ -4,8 +4,8 @@ import MatrixFunctions as mf
 from sklearn.preprocessing import MinMaxScaler
 
 def getValidFilesFromList():
-    path_to_file = '/home/pedro/Desktop/scop/testmax'
-    path_to_valid = '/home/pedro/Desktop/scop/valid_structures'
+    path_to_file = 'C:/ShareSSD/scop/testmax'
+    path_to_valid = 'C:/ShareSSD/scop/valid_structures'
 
     pattern = '/home/pedro/ShareSSD/scop/structures/'
     stop = 'INFO  : Cluster  Centroid  Size        Spread'
@@ -19,7 +19,7 @@ def getValidFilesFromList():
                 line = fp.readline()
 
 def readDistances(measure):
-    path_to_matrix = '/home/pedro/Desktop/scop/data_old/'+measure+'file'
+    path_to_matrix = 'C:/ShareSSD/scop/data_old/'+measure+'file'
 
     counter = 0
     matrix = []
@@ -83,7 +83,7 @@ def readDistances(measure):
     X0 = np.zeros((n,1))
     matrix = np.hstack((X0,matrix))
 
-    np.savetxt("/home/pedro/Desktop/scop/data_old/matrix2.txt", matrix,delimiter=' ', newline='\n')
+    np.savetxt("C:/ShareSSD/scop/data_old/matrix2.txt", matrix,delimiter=' ', newline='\n')
 
     if 'rmsd' in path_to_matrix:
         matrix = matrix/(matrix.max()/1)
@@ -93,17 +93,17 @@ def readDistances(measure):
     if 'gdt' in path_to_matrix:
         matrix = mf.processGDTMatrix(matrix)
 
-    np.savetxt("/home/pedro/Desktop/scop/data_old/matrix3.txt", matrix,delimiter=' ', newline='\n')
+    np.savetxt("C:/ShareSSD/scop/data_old/matrix3.txt", matrix,delimiter=' ', newline='\n')
 
     return domains, matrix
 
 def loadMatrixFromFile(sample, measure):
-    path_to_matrix = '/home/pedro/Desktop/scop/data/matrix_'+sample+'_'+measure
+    path_to_matrix = 'C:/ShareSSD/scop/data/matrix_'+sample+'_'+measure
     matrix = np.load(path_to_matrix)
     return matrix
 
 def readKernelParameters(sample, measure):
-    path_to_stats = '/home/pedro/Desktop/scop/data/stats_'+sample+'_'+measure
+    path_to_stats = 'C:/ShareSSD/scop/data/stats_'+sample+'_'+measure
     with open(path_to_stats, 'r') as fp:
         line = fp.readline()
         while line:
@@ -118,8 +118,8 @@ def readKernelParameters(sample, measure):
     return mean, std_dev, variance
 
 def readDistancesMaxsub(measure):
-    #path_to_matrix = '/home/pedro/Desktop/scop2/data_old/'+measure+'file'
-    path_to_matrix = '/home/pedro/Desktop/scop/data_old/testfile'
+    #path_to_matrix = 'C:/ShareSSD/scop2/data_old/'+measure+'file'
+    path_to_matrix = 'C:/ShareSSD/scop/data_old/testfile'
     counter = 0
     matrix = []
 
@@ -169,7 +169,7 @@ def readDistancesMaxsub(measure):
     X0 = np.zeros((n,1))
     matrix = np.hstack((X0,matrix))
 
-    np.savetxt("/home/pedro/Desktop/scop2/data_old/matrix2.txt", matrix,delimiter=' ', newline='\n')
+    np.savetxt("C:/ShareSSD/scop2/data_old/matrix2.txt", matrix,delimiter=' ', newline='\n')
 
     if 'rmsd' in path_to_matrix:
         matrix = matrix/(matrix.max()/1)
@@ -179,6 +179,6 @@ def readDistancesMaxsub(measure):
     if 'gdt' in path_to_matrix:
         matrix = mf.processGDTMatrix(matrix)
 
-    np.savetxt("/home/pedro/Desktop/scop2/data_old/matrix3.txt", matrix,delimiter=' ', newline='\n')
+    np.savetxt("C:/ShareSSD/scop2/data_old/matrix3.txt", matrix,delimiter=' ', newline='\n')
 
     return domains, matrix

@@ -1,4 +1,2 @@
 
 .\maxcluster.exe -l list_test.txt -tm -in -C 0 -R complete
-
-./maxcluster64bit -l /home/pedro/Desktop/scop/samples/sample_structures_b.3 -noalign -rmsd -in -C 1 -Rl /home/pedro/Desktop/scop/results/b.3_rmsd

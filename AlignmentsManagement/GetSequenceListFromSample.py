@@ -1,10 +1,6 @@
 
 
-
-
-import os
-
-def getStructureList(sample):
+def getSequenceList(sample):
     path_to_sample = 'C:/ShareSSD/scop/samples/sample_'+sample
     path_to_structures = 'C:/ShareSSD/scop/samples/sample_structures_'+sample
 
@@ -17,3 +13,5 @@ def getStructureList(sample):
                 fp2.write(str(line).strip().split()[0]+'\n')
 
                 line = fp.readline()
+
+
