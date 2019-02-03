@@ -63,3 +63,18 @@ def kMedoids(D, k, tmax=100):
 
     # return results
     return M, C 
+
+def sortLabels(clusters):
+    new_dict = {}
+
+    for label in clusters:
+            for point_idx in clusters[label]:
+                    new_dict[point_idx] = label
+
+    sorted_keys = sorted(new_dict.keys())
+
+    ordered_labels = []
+    for key in sorted_keys:
+            ordered_labels.append(new_dict[key])
+
+    return ordered_labels

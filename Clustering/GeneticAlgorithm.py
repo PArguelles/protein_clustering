@@ -28,7 +28,7 @@ def fitnessFunction(individual, labels, ground_truth):
     # maximize with respect to ARI
     # test with sum
     #fitness = sum(individual)
-    fitness = metrics.adjusted_rand_score(labels, ground_truth)
+    fitness = metrics.homogeneity_score(labels, ground_truth)
 
     return fitness
     

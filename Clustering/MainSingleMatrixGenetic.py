@@ -1,4 +1,6 @@
 
+
+
 import Clustering as cl
 import GeneticAlgorithm as ga
 import MatrixFunctions as mf
@@ -11,9 +13,9 @@ from sklearn.cluster import AgglomerativeClustering
 path_to_results = 'C:/ShareSSD/scop/clustering_results/'
 measure1 = 'gdt_2'
 measure2 = 'gdt_2'
-measure3 = 'seq'
-sample = 'a.3.'
-sample_for_domains ='a.3'
+measure3 = 'gdt_2'
+sample = 'a.1.'
+sample_for_domains ='a.1'
 
 matrix1 = rs.loadMatrixFromFile(sample, measure1)
 matrix2 = rs.loadMatrixFromFile(sample, measure2)
@@ -109,7 +111,9 @@ with open(path_to_results+'hierarchical_'+measure1+'_'+measure2, 'w') as nf:
             population = ga.mutatePopulation(next_population, MUTATION_CHANCE)
 
             current_best_individual, current_max_fitness = ga.getFittestIndividual(population, labels, ground_truth)
-            print(' '.join(current_best_individual)+' '+str(current_max_fitness)+'\n')
+            print(generation)
+            print(str(current_best_individual)+' '+str(current_max_fitness)+'\n')
+            print('---------------------------')
 
             # save results in order to save computation time
             # rever

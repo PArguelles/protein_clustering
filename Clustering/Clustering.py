@@ -34,3 +34,18 @@ def clusterEvaluationNoLabels(X, labels):
     values.append(metrics.calinski_harabaz_score(X, labels))
     values.append(metrics.silhouette_score(X, labels, metric='precomputed'))
     return values
+
+def saveResults(measure1, measure2, algorithm, sample, metrics):
+
+    path_to_results = 'C:/ShareSSD/scop/clustering_results/'
+    
+    with open(path_to_results+algorithm+'_'+sample+'_'+measure1+'_'+measure2, 'w') as nf:
+        nf.write('# Cluster evaluation: \n')
+        #nf.write('Individual: '+'-'.join(str(individual)))
+        nf.write('Homogeneity: %0.3f \n' % metrics[0])
+        nf.write('Completeness: %0.3f \n' % metrics[1])
+        nf.write('V-measure: %0.3f \n' % metrics[2])
+        nf.write('Adjusted Rand Index: %0.3f \n' % metrics[3])
+        nf.write('Adjusted Mutual Information: %0.3f \n' % metrics[4])
+        nf.write('Calinksi-Harabaz: %0.3f \n' % metrics[5])
+        nf.write('Silhouette coefficient: %0.3f \n' % metrics[6]) 
