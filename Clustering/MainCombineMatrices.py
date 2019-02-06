@@ -21,7 +21,7 @@ matrix1 = rs.loadMatrixFromFile(sample, measure1)
 matrix2 = rs.loadMatrixFromFile(sample, measure2)
 matrix3 = rs.loadMatrixFromFile(sample, measure3)
 
-matrix3 = 1 - matrix3
+#matrix3 = 1 - matrix3
 
 domains = rs.loadDomainListFromFile(sample)
 
@@ -32,9 +32,9 @@ ground_truth = scop.getDomainLabels(domains)
 ground_truth = map(int, ground_truth)
 ground_truth = list(map(int, ground_truth))
 
-matrix1 = mf.minMaxScale(matrix1)
-matrix2 = mf.minMaxScale(matrix2)
-matrix3 = mf.minMaxScale(matrix3)
+#matrix1 = mf.minMaxScale(matrix1)
+#matrix2 = mf.minMaxScale(matrix2)
+#matrix3 = mf.minMaxScale(matrix3)
 
 # matrix1 = mf.calculatedistances(matrix1)
 # matrix2 = mf.calculatedistances(matrix2)

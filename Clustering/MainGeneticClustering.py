@@ -61,7 +61,7 @@ cache = {}
 with open(path_to_results+'hierarchical_'+measure1+'_'+measure2, 'w') as nf:
 
     generation = 0
-    while generation < MAX_GENERATIONS or convergence_counter < MAX_CONVERGENCE:
+    while generation < MAX_GENERATIONS and convergence_counter < MAX_CONVERGENCE:
         
         for individual in population:
             
@@ -109,10 +109,9 @@ with open(path_to_results+'hierarchical_'+measure1+'_'+measure2, 'w') as nf:
             population = ga.mutatePopulation(next_population, MUTATION_CHANCE)
 
             current_best_individual, current_max_fitness = ga.getFittestIndividual(population, labels, ground_truth)
-            print(' '.join(current_best_individual)+' '+str(current_max_fitness)+'\n')
+            #print(' '.join(current_best_individual)+' '+str(current_max_fitness)+'\n')
 
             # save results in order to save computation time
-            # rever
             for ind, fit in population_sorted:
                 cache[tuple(ind)] = fit
 
@@ -121,10 +120,13 @@ with open(path_to_results+'hierarchical_'+measure1+'_'+measure2, 'w') as nf:
                 best_fitness = current_best_fitness
                 best_individual = current_best_individual
 
-            if current_best_individual == current_best:
+            if current_best_fitness == best_fitness:
                 convergence_counter += 1
             else:
                 convergence_counter = 0
+
+            if convergence_counter > MAX_CONVERGENCE:
+                break
 
             generation += 1
 

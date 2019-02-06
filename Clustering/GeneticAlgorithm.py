@@ -3,6 +3,15 @@ import operator
 import random 
 from sklearn import metrics
 
+import Clustering as cl
+import GeneticAlgorithm as ga
+import KMedoids as km
+import MatrixFunctions as mf
+import ReadSimilarities as rs
+import UtilitiesSCOP as scop
+
+from sklearn.cluster import AgglomerativeClustering
+
 def generateIndividual():
     p1 = generateRandomInt()
     p2 = generateRandomInt()
@@ -24,18 +33,31 @@ def generatePopulation(population_size):
         i += 1
     return population
 
-def fitnessFunction(individual, labels, ground_truth):
+def fitnessFunction(individual, algorithm, n_labels, ground_truth, m1, m2, m3):
     # maximize with respect to ARI
-    # test with sum
-    #fitness = sum(individual)
-    fitness = metrics.homogeneity_score(labels, ground_truth)
+    w1 = individual[0]
+    w2 = individual[1]
+    w3 = individual[2]
+    corr = mf.calculateCorrelationMatrix(m1, m2, m3, w1, w2, w3)
+
+    if algorithm == 'complete':
+        agglomerative = AgglomerativeClustering(affinity='precomputed', n_clusters=n_labels, linkage='complete').fit(corr)
+        labels = agglomerative.labels_
+    elif algorithm == 'average':
+        agglomerative = AgglomerativeClustering(affinity='precomputed', n_clusters=n_labels, linkage='average').fit(corr)
+        labels = agglomerative.labels_
+    elif algorithm == 'kmedoids':
+        _, clusters = km.kMedoids(corr, n_labels, 100)
+        labels = km.sortLabels(clusters)
+    
+    fitness = metrics.adjusted_rand_score(labels, ground_truth)
 
     return fitness
     
-def calculatePopulationFitness(population, labels, ground_truth):
+def calculatePopulationFitness(population, algorithm, n_labels, ground_truth, m1, m2, m3):
     population_fitness = []
     for i in range(len(population)):
-        fitness = fitnessFunction(population[i], labels, ground_truth)
+        fitness = fitnessFunction(population[i], algorithm, n_labels, ground_truth, m1, m2, m3)
         population_fitness.append(fitness)
 
     to_sort = list(zip(population, population_fitness))
@@ -72,12 +94,25 @@ def createChildren(breeders, number_of_children):
 	return next_population
 
 def mutateIndividual(individual):
+    #choose mutation
+    rand = random.randint(0,1)
+    if rand == 0:
+        return swapWeightsMutation(individual)
+    else:
+        return generateNewWeightsMutation(individual)
+
+def generateNewWeightsMutation(individual):
+    position = random.randint(0,2)
+    new_weight = generateRandomInt()
+    individual[position] = new_weight
+    return individual
+
+def swapWeightsMutation(individual):
     #swap weight positions
     position1 = random.randint(0,2)
     position2 = random.randint(0,2)
     while position1 == position2:
         position2 = random.randint(0,2)
-
     tmp = individual[position1]
     individual[position1] = position2
     individual[position2] = tmp
@@ -90,14 +125,14 @@ def mutatePopulation(population, mutation_chance):
             population[i] = mutateIndividual(population[i])
     return population
 
-def getFittestIndividual(population, labels, ground_truth):
+# def getFittestIndividual(population, labels, ground_truth):
 
-    max_fitness = 0
-    best_individual = []
+#     max_fitness = 0
+#     best_individual = []
 
-    for individual in population:
-        if fitnessFunction(individual, labels, ground_truth) > max_fitness:
-            best_individual = individual
-            max_fitness = fitnessFunction(individual, labels, ground_truth)
+#     for individual in population:
+#         if fitnessFunction(individual, labels, ground_truth) > max_fitness:
+#             best_individual = individual
+#             max_fitness = fitnessFunction(individual, labels, ground_truth)
 
-    return best_individual, max_fitness    
+#     return best_individual, max_fitness    
