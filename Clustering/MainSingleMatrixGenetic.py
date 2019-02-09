@@ -1,6 +1,5 @@
 
 
-
 import Clustering as cl
 import GeneticAlgorithm as ga
 import KMedoids as km
@@ -11,7 +10,7 @@ import UtilitiesSCOP as scop
 from sklearn.cluster import AgglomerativeClustering
 
 # WORKING ON THIS
-# complete, average or kmedoids 
+# complete, average or kmedoids
 algorithm = 'complete'
 
 # load protein data before loop
@@ -20,7 +19,7 @@ measure1 = 'rmsd'
 measure2 = 'gdt_2'
 measure3 = 'seq'
 sample = 'a.1.'
-sample_for_domains ='a.1'
+sample_for_domains = 'a.1'
 
 matrix1 = rs.loadMatrixFromFile(sample, measure1)
 matrix2 = rs.loadMatrixFromFile(sample, measure2)
@@ -43,7 +42,7 @@ ground_truth = scop.getDomainLabels(domains)
 # genetic algorithm parameters
 # default 50, 20, 10
 POPULATION_SIZE = 50
-MUTATION_CHANCE = 90
+MUTATION_CHANCE = 40
 MAX_GENERATIONS = 10
 
 # each pair from fittest and random produces 10 children
@@ -53,7 +52,7 @@ N_FITTEST = 5
 N_RANDOM = 5
 POPULATION_SIZE = ((N_FITTEST+N_RANDOM) / 2) * N_CHILDREN
 
-# sets of random weights for each similarity measure
+# create initial population
 population = ga.generatePopulation(POPULATION_SIZE)
 
 # track best individual convergence
@@ -70,20 +69,21 @@ with open(path_to_results+'hierarchical_'+measure1+'_'+measure2, 'w') as nf:
 
     generation = 0
     while generation < MAX_GENERATIONS and convergence_counter < MAX_CONVERGENCE:
-        
+
         # recompute weights with genetic algorithm
         # calculate population fitness
         population_sorted = ga.calculatePopulationFitness(population, algorithm, n_labels, ground_truth, matrix1, matrix2, matrix3)
 
+        population.clear()
+
         # get the fittest individual
         current_best_individual = population_sorted[0][0]
         current_best_fitness = population_sorted[0][1]
-        
+
         # calculate metrics for the best individual here
-        
 
         # get parents for next generation
-        breeders = ga.selectFromPopulation(population_sorted, N_FITTEST, N_RANDOM)    
+        breeders = ga.selectFromPopulation(population_sorted, N_FITTEST, N_RANDOM)
 
         # create next generation
         next_population = ga.createChildren(breeders, N_CHILDREN)
@@ -97,14 +97,15 @@ with open(path_to_results+'hierarchical_'+measure1+'_'+measure2, 'w') as nf:
         else:
             convergence_counter = 0
 
-        #update best individual
+        # update best individual
         if current_best_fitness > overall_best_fitness:
             overall_best_fitness = current_best_fitness
             overall_best_individual = current_best_individual
 
-        print(generation)
         print(current_best_fitness)
         print(current_best_individual)
+        print(generation)
+        print(convergence_counter)
         print('-------------------------')
         generation += 1
 
@@ -114,8 +115,6 @@ print(overall_best_individual)
 print(generation)
 print(convergence_counter)
 print('-------------------------')
-
-
 
 
 # K-Medoids
@@ -133,7 +132,3 @@ print('-------------------------')
 # nf.write('Adjusted Mutual Information: %0.3f \n' % metrics[4])
 # nf.write('Calinksi-Harabaz: %0.3f \n' % metrics[5])
 # nf.write('Silhouette coefficient: %0.3f \n' % metrics[6])
-
-
-
-

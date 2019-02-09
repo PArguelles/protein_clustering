@@ -34,10 +34,11 @@ def generatePopulation(population_size):
     return population
 
 def fitnessFunction(individual, algorithm, n_labels, ground_truth, m1, m2, m3):
-    # maximize with respect to ARI
+
     w1 = individual[0]
     w2 = individual[1]
-    w3 = individual[2]
+    # w3 = individual[2]
+    w3 = 0
     corr = mf.calculateCorrelationMatrix(m1, m2, m3, w1, w2, w3)
 
     if algorithm == 'complete':
@@ -50,7 +51,15 @@ def fitnessFunction(individual, algorithm, n_labels, ground_truth, m1, m2, m3):
         _, clusters = km.kMedoids(corr, n_labels, 100)
         labels = km.sortLabels(clusters)
     
-    fitness = metrics.adjusted_rand_score(labels, ground_truth)
+    #fitness = metrics.homogeneity_score(labels, ground_truth)
+    #fitness = metrics.adjusted_rand_score(labels, ground_truth)
+    #fitness = sum(individual)
+    fitness = metrics.calinski_harabaz_score(corr, labels)
+
+    corr = None
+    m1 = None
+    m2 = None
+    m3 = None
 
     return fitness
     
@@ -69,8 +78,9 @@ def selectFromPopulation(population, n_fittest, n_random):
     for i in range(n_fittest):
         next_generation.append(population[i][0])
 
-    for i in range(n_random):
-	    next_generation.append(random.choice(population)[0])
+    for j in range(n_random):
+        index = random.randint(0, len(population)-1)
+        next_generation.append(population[index][0])
 
     random.shuffle(next_generation)
     return next_generation
