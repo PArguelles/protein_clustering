@@ -7,6 +7,7 @@ from gaft.components import BinaryIndividual
 from gaft.components import DecimalIndividual
 from gaft.components import Population
 from gaft.operators import TournamentSelection
+from gaft.operators import RouletteWheelSelection
 from gaft.operators import UniformCrossover
 from gaft.operators import FlipBitMutation
 
@@ -57,13 +58,14 @@ ground_truth = scop.getDomainLabels(domains)
 
 
 # Define population.
-indv_template = DecimalIndividual(ranges=[(0, 1),(0, 1),(0, 1)], eps=[0.001,0.001,0.001])
-population = Population(indv_template=indv_template, size=10).init()
+indv_template = DecimalIndividual(ranges=[(0.1, 0.9),(0.1, 0.9),(0.1, 0.9)], eps=[0.01,0.01,0.01])
+population = Population(indv_template=indv_template, size=30).init()
 
 # Create genetic operators.
-selection = TournamentSelection()
+#selection = TournamentSelection()
+selection = RouletteWheelSelection()
 crossover = UniformCrossover(pc=0.8, pe=0.5)
-mutation = FlipBitMutation(pm=0.1)
+mutation = FlipBitMutation(pm=0.6)
 
 # Create genetic algorithm engine.
 engine = GAEngine(population=population, selection=selection,
@@ -81,7 +83,11 @@ def fitness(indv):
 
     metrics = cl.clusterEvaluation(corr, labels, ground_truth)
 
-    return float(metrics[2])
+    if metrics[0] <= 0:
+        return 1
+
+    print(metrics[0] * 100)
+    return float(metrics[0]) * 100
 
 # Define on-the-fly analysis.
 @engine.analysis_register
@@ -93,10 +99,11 @@ class ConsoleOutputAnalysis(OnTheFlyAnalysis):
         best_indv = population.best_indv(engine.fitness)
         msg = 'Generation: {}, best fitness: {:.3f}'.format(g, engine.ori_fmax)
         print(msg)
+        #print(str(best_indv[0])+str(best_indv[1])+str(best_indv[2]))
         #self.logger.info(msg)
 
     # added path
-    def finalize(self, population, engine, path_to_results):
+    def finalize(self, population, engine):
         best_indv = population.best_indv(engine.fitness)
         x = best_indv.solution
         y = engine.ori_fmax
