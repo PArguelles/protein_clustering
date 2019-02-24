@@ -88,16 +88,3 @@ def readDistances(sample, measure):
     # np.savetxt("C:/ShareSSD/scop/data_old2/matrix_"+measure, matrix, delimiter=' ', newline='\n')
     matrix.dump('C:/ShareSSD/scop/matrix_'+sample+'_'+measure)
     return domains, matrix
-
-readDistances('a.1.','gdt_2')
-readDistances('a.1.','gdt_4')
-readDistances('a.1.','rmsd')
-readDistances('a.3.','gdt_2')
-readDistances('a.3.','gdt_4')
-readDistances('a.3.','rmsd')
-readDistances('b.3.','gdt_2')
-readDistances('b.3.','gdt_4')
-readDistances('b.3.','rmsd')
-readDistances('b.2.','gdt_2')
-readDistances('b.2.','gdt_4')
-readDistances('b.2.','rmsd')

@@ -3,7 +3,6 @@ import sklearn.preprocessing as pp
 
 def symmetrizeMatrix(a):
     a = a + a.T - np.diag(a.diagonal())
-    #np.savetxt("C:/ShareSSD/scop/data_old2/matrix4", a,delimiter=' ', newline='\n')
     return a    
 
 def calculateCorrelation(w, a, b):
