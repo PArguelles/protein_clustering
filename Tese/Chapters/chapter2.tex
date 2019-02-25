@@ -1,0 +1,55 @@
+%!TEX root = ../template.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% chapter2.tex
+%% NOVA thesis document file
+%%
+%% Chapter with the template manual
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Work plan}
+\label{cha:users_manual}
+
+This chapter contains the proposed approach and the work plan along with an estimate time line for task completion.
+
+\section{Proposed approach -RESTRUTURAR}
+
+%-preparar ficheiros das bases de dados-
+
+Currently, there are a few available libraries for the Python programming language that make it the preferred choice for this work. Initially, some time will be spent in knowing the language and its libraries.
+
+
+In an initial approach, we will start by clustering docking models. These are the simplest cases of study since every structure possesses the same sequence due to them being different representations of the same protein complex. Thus, structural alignments will be used to access the correctness of a given prediction.
+
+Nowadays there are three major platforms that provide us with protein structure data:
+\begin{itemize}
+
+\item The CATH protein structure database is a free online platform that holds data regarding evolutionary relationships of protein domains. Currently, it contains 95 million protein domains which are classified into 6119 superfamilies. The acronym originates from the hierarchical classification of the domains: Class, Architecture, Topology and Homologous superfamily.
+
+\item One other database is SCOP
+
+\end{itemize}
+
+Both of these databases are useful in order to benchmark structure comparison algorithms
+
+Using information from this database, we can apply a hierarchical clustering algorithm in order to
+
+http://cathdb.info
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3525972/
+
+%-Clustering hierarquico olhando para bases de dados de estruturas de proteinas SCOP e CATH-
+
+
+During this first approach we must also evaluate the performance of both the applied clustering algorithms and RMSD measurements. Since we can expect RMSD to poorly perform in some cases, following this we can focus on countering this issue by using other measures.
+
+Several clustering algorithms and cluster evaluation scores are to be experimented with, since they usually produce different results for the same dataset.
+
+Success: 
+
+%https://bmcstructbiol.biomedcentral.com/articles/10.1186/1472-6807-9-23
+
+Python
+\begin{enumerate}
+	\item Set up the required tools, familiarization with Python and its libraries
+	\item Analyze PDB, SCOP and CATH database entries in order to process them 
+	\item Cluster structure prediction models
+	\item Cluster 
+\end{enumerate}
