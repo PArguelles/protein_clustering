@@ -25,7 +25,7 @@ from sklearn.cluster import AgglomerativeClustering
 # LOAD PROTEIN DATA
 #####################################################
 
-path_to_results = 'C:/ShareSSD/scop/clustering_results/'
+path_to_results = 'C:/ShareSSD/scop/tests/'
 measure1 = 'rmsd'
 measure2 = 'gdt_2'
 measure3 = 'seq'

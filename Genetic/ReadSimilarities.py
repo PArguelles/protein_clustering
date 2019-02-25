@@ -79,8 +79,6 @@ def readSimilaritiesToMatrix(sample, measure):
                 nf.write(domain+'\n')
             nf.write('END')
 
-    #print(matrix)
-
 def loadMatrixFromFile(sample, measure):
     path_to_matrix = 'C:/ShareSSD/scop/data/matrix_'+sample+'_'+measure
     matrix = np.load(path_to_matrix)

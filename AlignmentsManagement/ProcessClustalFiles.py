@@ -40,5 +40,4 @@ def processClustalFiles(sample):
         with open(path_to_values, 'w') as fp2:
             for value in values:
                 fp2.write(str(value)+'\n')
-        #np.savetxt(path_to_new,final,delimiter=' ', newline='\n')
 

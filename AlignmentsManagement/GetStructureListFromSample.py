@@ -19,8 +19,4 @@ def getStructureList(sample):
 
                 line = fp.readline()
 
-getStructureList('a.1')
-getStructureList('a.3')
-getStructureList('b.2')
-getStructureList('b.3')
 

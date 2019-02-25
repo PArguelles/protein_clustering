@@ -25,7 +25,6 @@ for spl in ['a.1', 'a.3', 'b.2', 'b.3']:
             parsed = filename.split('_')
             measure1 = parsed[3]
             if 'rmsd' in measure1:
-                measure2 = parsed[4]
                 lab1 = 'RMSD'
 
             elif 'gdt' in measure1:
@@ -35,7 +34,13 @@ for spl in ['a.1', 'a.3', 'b.2', 'b.3']:
                     lab1 = 'GDT-TS'
 
             elif 'seq' in measure1:
-                lab1 = 'SEQ'
+                lab1 = 'Sequence'
+
+            elif 'tm' in measure1:
+                lab1 = 'TM-Score'
+
+            elif 'maxsub' in measure1:
+                lab1 = 'MaxSub'
 
             label = lab1
 
