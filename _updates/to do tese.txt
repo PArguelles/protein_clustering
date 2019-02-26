@@ -1,0 +1,2 @@
+
+Adicionar inversao para os valores tm score e maxsub
